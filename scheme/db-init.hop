@@ -1,0 +1,7 @@
+(module db-init
+        (library sqlite)
+        (export db))
+
+(define db (instantiate::sqlite (path "./db/site.db")))
+
+

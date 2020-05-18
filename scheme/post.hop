@@ -1,0 +1,41 @@
+(module post
+        (export make-post
+                 get-id
+                 get-title
+                 get-date-created
+                 get-date-updated
+                 get-content
+                 get-published
+                 make-post-object))
+       
+(define-record-type post
+  (make-post i t d u c p n)
+  post?
+  (i get-id)
+  (t get-title)
+  (d get-date-created)
+  (u get-date-updated)
+  (c get-content)
+  (p get-published)
+  (n get-normalized-title))
+
+(define (make-post-object post %this)
+  (with-access::JsGlobalObject
+   %this (js-object)
+  (let ((post-object (js-new %this js-object)))
+    (js-put! post-object (& "title")
+             (js-string->jsstring (get-title post)) #f %this)
+    (js-put! post-object (& "dateCreated")
+             (js-string->jsstring (get-date-created post)) #f %this)
+    (js-put! post-object (& "dateUpdated")
+             (js-string->jsstring (get-date-updated post)) #f %this)
+    (js-put! post-object (& "content")
+             (js-string->jsstring (get-content post)) #f %this)
+    (js-put! post-object (& "id")
+             (js-string->jsstring (get-id post)) #f %this)
+    (js-put! post-object (& "published")
+             (get-published post) #f %this)
+    (js-put! post-object (& "url")
+             (js-string->jsstring (get-normalized-title post)) #f %this)
+    post-object)))
+        

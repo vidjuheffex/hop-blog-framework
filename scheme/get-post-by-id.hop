@@ -1,0 +1,19 @@
+(module get-post-by-id
+        (library sqlite)
+        (import 
+         (db-init "./db-init.hop")
+         (post "./post.hop"))
+        (export (hopscript %this _ scope mod)))
+
+(define (hopscript %this _ scope mod)
+  (js-put!
+   mod (& "exports")
+   (lambda (id)
+     (let* ((post
+             (sqlite-eval db
+                          (lambda (id title date updated content published url)
+                            (make-post id title date updated content (positive? (string->number published)) url))
+                          "SELECT Post.id, Post.title, Post.dateCreated, Post.lastUpdated, Post.content, Post.published, Post.url FROM Post WHERE id = '~A'" (js-jsstring->string id)))
+            (post-object (make-post-object post %this)))
+       post-object))
+   #f %this))

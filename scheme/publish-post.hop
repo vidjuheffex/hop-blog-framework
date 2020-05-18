@@ -1,0 +1,16 @@
+(module publish-post
+        (library sqlite)
+        (import 
+         (db-init "./db-init.hop"))
+        (export (hopscript %this _ scope mod)))
+
+(define (hopscript %this _ scope mod)
+  (with-access::JsGlobalObject
+   %this (js-object)
+   (js-put!
+    mod (& "exports")
+    (lambda (id isPublished?)
+      (sqlite-exec db
+                   "UPDATE Post SET published = ~A WHERE id = '~A'" (if isPublished? 0 1) (js-jsstring->string id)))
+    #f %this)))
+
