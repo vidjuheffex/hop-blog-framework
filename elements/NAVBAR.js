@@ -1,6 +1,6 @@
 const NAVBAR = () =>
       (<nav class="navbar navbar-expand text-light navbar-dark bg-primary">
-         <a class="navbar-brand">Caad.ar</a>
+         <a href="/hop/blog" class="navbar-brand">call-with.cc</a>
          <ul class="navbar-nav">
            <li class="nav-item active">
              <a href="/hop/blog" class="nav-link">Blog</a>
