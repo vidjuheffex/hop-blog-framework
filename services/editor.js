@@ -23,6 +23,8 @@ service editor ( o ) {
 
   return (
     <sitewrap>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css""/>
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js" />
     <script src='../helpers/normalize.js' lang="hopscript" />
     <script defer>
     const normalize = require('../helpers/normalize.js');
