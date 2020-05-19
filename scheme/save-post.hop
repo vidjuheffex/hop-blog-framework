@@ -11,7 +11,7 @@
    %this (js-object)
    (js-put!
     mod (& "exports")
-    (lambda (id title content published? dateCreated)
+    (lambda (id title url content published? dateCreated)
       (sqlite-exec db 
-      "INSERT OR REPLACE INTO post (id, title, content, published, dateCreated, lastUpdated) VALUES ('~A', '~A', '~A', ~A, '~A', '~A')" id title content (if published? 1 0) (if (unspecified? dateCreated) (date->utc-string (current-date)) dateCreated) (date->utc-string (current-date))))
+      "INSERT OR REPLACE INTO post (id, title, url, content, published, dateCreated, lastUpdated) VALUES ('~A', '~A', '~A', '~A', ~A, '~A', '~A')" id title url content (if published? 1 0) (if (unspecified? dateCreated) (date->utc-string (current-date)) dateCreated) (date->utc-string (current-date))))
     #f %this)))

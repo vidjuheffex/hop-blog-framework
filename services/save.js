@@ -1,4 +1,5 @@
 const savePost = require('../scheme/save-post');
+const normalize = require('../helpers/normalize.js');
 
 service save ( o ) {
   let id = o && o.id;
@@ -12,7 +13,7 @@ service save ( o ) {
     published = false;
   }
   
-  savePost(id, o.title, o.content, published, dateCreated);
+  savePost(id, o.title, normalize(o.title), o.content, published, dateCreated);
   return id;
 }
 

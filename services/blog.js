@@ -14,7 +14,7 @@ service blog () {
               const url = `/hop/post?title=${post.url}`;
               return <li>
                        <a href=${url}>
-                         ${decodeURIComponent(post.title)}
+                         ${post.title}
                        </a><span class="text-muted">${post.dateUpdated}</span>
                      </li>
             })}

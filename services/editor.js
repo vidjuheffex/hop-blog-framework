@@ -25,7 +25,7 @@ service editor ( o ) {
     <sitewrap>
     <script src='../helpers/normalize.js' lang="hopscript" />
     <script defer>
-       const normalize = require('../helpers/normalize.js');
+    const normalize = require('../helpers/normalize.js');
     </script>
     ~{
       const state = hop.reactProxy({
