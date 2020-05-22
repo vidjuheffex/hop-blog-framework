@@ -1,0 +1,16 @@
+(module get-markdown
+        (library sqlite)
+        (export (hopscript %this _ scope mod)))
+
+(define (hopscript %this _ scope mod)
+  (js-put!
+   mod (& "exports")
+   (lambda (input)
+     (let* ((proc (run-process "cmark" input: pipe: output: pipe:))
+            (proc-input (process-input-port proc))
+            (proc-output (process-output-port proc)))       
+       (fprint proc-input (js-jsstring->string input))
+       (flush-output-port proc-input)
+       (close-output-port proc-input)
+       (js-string->jsstring (read-string proc-output))))
+   #f %this))

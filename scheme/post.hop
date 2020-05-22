@@ -19,6 +19,8 @@
   (p get-published)
   (n get-normalized-title))
 
+(define (unspecified? x) (eq? #unspecified x))
+
 (define (make-post-object post %this)
   (with-access::JsGlobalObject
    %this (js-object)
@@ -30,7 +32,7 @@
     (js-put! post-object (& "dateUpdated")
              (js-string->jsstring (get-date-updated post)) #f %this)
     (js-put! post-object (& "content")
-             (js-string->jsstring (get-content post)) #f %this)
+             (if (unspecified? (get-content post)) "" (js-string->jsstring (get-content post))) #f %this)
     (js-put! post-object (& "id")
              (js-string->jsstring (get-id post)) #f %this)
     (js-put! post-object (& "published")

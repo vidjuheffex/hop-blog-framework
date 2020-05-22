@@ -4,7 +4,7 @@
          (db-init "./db-init.hop"))
         (export (hopscript %this _ scope mod)))
 
-(define (unspecified? x) (eq? #unspecified #unspecified))
+(define (unspecified? x) (eq? #unspecified x))
 
 (define (hopscript %this _ scope mod)
   (with-access::JsGlobalObject
@@ -13,5 +13,5 @@
     mod (& "exports")
     (lambda (id title url content published? dateCreated)
       (sqlite-exec db 
-      "INSERT OR REPLACE INTO post (id, title, url, content, published, dateCreated, lastUpdated) VALUES ('~A', '~A', '~A', '~A', ~A, '~A', '~A')" id title url content (if published? 1 0) (if (unspecified? dateCreated) (date->utc-string (current-date)) dateCreated) (date->utc-string (current-date))))
+      "INSERT OR REPLACE INTO post (id, title, url, content, published, dateCreated, lastUpdated) VALUES ('~A', '~A', '~A', ~q, ~A, '~A', '~A')" id title url (if (unspecified? content) 'NULL  (js-jsstring->string content)) (if published? 1 0) (if (unspecified? dateCreated) (date->utc-string (current-date)) dateCreated) (date->utc-string (current-date))))
     #f %this)))

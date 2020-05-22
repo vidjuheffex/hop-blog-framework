@@ -1,4 +1,4 @@
-const savePost = require('../scheme/save-post');
+const savePost = require('../scheme/save-post.hop');
 const normalize = require('../helpers/normalize.js');
 
 service save ( o ) {
