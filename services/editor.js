@@ -44,22 +44,33 @@ service editor ( o ) {
           state.published = !state.published
         });
       }
+      
       const save = () => {
         state.saving = "saving";
-        ${save}({id: state.id, title: state.title, content: editor.value()}).post((r) => {
-          state.saving = false;
-
+        const data = new URLSearchParams();
+        data.append("id", state.id);
+        data.append("title", state.title);
+        data.append("content", editor.value());
+        fetch("/hop/save", {
+          method:'POST',
+          headers: {"content-type":"application/x-www-form-urlencoded"},
+          body: data
+        }).then(r => r.text()).then(r => {
           state.id = r;
-        });
+          state.saving = false;
+        }).catch(err => {
+          console.log(err)
+        })
       }
+
       const updateTitle = (el) => {
         state.title=el.value;
-      }
     }
-    <div class="row align-items-center mb-3">
-    <div class="col">
-      <input oninput=~{updateTitle(this)} class="form-control form-control-lg" placeholder="Post Title" value=~{state.title} />
-    </div>
+  }
+<div class="row align-items-center mb-3">
+<div class="col">
+<input oninput=~{updateTitle(this)} class="form-control form-control-lg" placeholder="Post Title" value=~{state.title} />
+</div>
 
     
     <!-- Save Button Reactive -->

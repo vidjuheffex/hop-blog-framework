@@ -12,7 +12,6 @@ service save ( o ) {
   if (!published) {
     published = false;
   }
-  
   savePost(id, o.title, normalize(o.title), o.content, published, dateCreated);
   return id;
 }
