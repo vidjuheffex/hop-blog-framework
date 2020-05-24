@@ -11,7 +11,31 @@
    %this (js-object)
    (js-put!
     mod (& "exports")
-    (lambda (id title url content published? dateCreated)
-      (sqlite-exec db 
-      "INSERT OR REPLACE INTO post (id, title, url, content, published, dateCreated, lastUpdated) VALUES ('~A', '~A', '~A', ~q, ~A, '~A', '~A')" id title url (if (unspecified? content) 'NULL  (js-jsstring->string content)) (if published? 1 0) (if (unspecified? dateCreated) (date->utc-string (current-date)) dateCreated) (date->utc-string (current-date))))
+    (lambda (js-id title url content)
+      (let* ((id (js-jsstring->string js-id))
+             (has-id? (not (string-null? id)))
+             (current-id (if has-id? id (genuuid))))
+        (if (string-null? id)
+            (sqlite-exec db 
+                         "INSERT INTO post (id, title, url, content, published, dateCreated, lastUpdated) VALUES ('~A', '~A', '~A', ~q, '~A', '~A', '~A')"
+                         current-id
+                         title
+                         url
+                         (if (unspecified? content)
+                             'NULL
+                             (js-jsstring->string content))
+                         0
+                         (date->utc-string (current-date))
+                         (date->utc-string (current-date)))
+            (sqlite-exec db
+                         "UPDATE post SET (title, url, content, lastUpdated) = ('~A', '~A', ~q, '~A') WHERE id='~A'"
+                         title
+                         url
+                         (if (unspecified? content)
+                             'NULL
+                             (js-jsstring->string content))
+                         (date->utc-string (current-date))
+                         current-id))
+        (js-string->jsstring current-id)))
     #f %this)))
+  

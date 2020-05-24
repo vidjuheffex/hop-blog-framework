@@ -1,0 +1,14 @@
+(module delete-post-by-id
+        (library sqlite)
+        (import 
+         (db-init "./db-init.hop")
+         (post "./post.hop"))
+        (export (hopscript %this _ scope mod)))
+
+(define (hopscript %this _ scope mod)
+  (js-put!
+   mod (& "exports")
+   (lambda (id)
+     (sqlite-exec db"DELETE FROM Post WHERE id = '~A'" (js-jsstring->string id))
+     id)
+   #f %this))
