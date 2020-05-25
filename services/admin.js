@@ -35,7 +35,7 @@ service admin() {
 
         const handleDeleteClick = () => {
           ${deletePost}({id: state.id}).post((id)=>{
-            const el = document.querySelector(`tr[data-post-id="${state.id}"]`);
+            const el = document.querySelector(`[data-post-id="${state.id}"]`);
             el.parentNode.removeChild(el);
             $('#confirmModal').modal('hide')
           })
@@ -73,24 +73,27 @@ service admin() {
         ${getPostList().map((post)=>{
           function getBadge(published){
             if (published) {
-              return <span></span>
+              return <span class="badge badge-primary">Published</span>
             } else {
               return <span class="badge badge-secondary">Draft</span>
             }
           }
           
           return (<tr data-post-id=${post.id}>
-                    <td>
+                    <td class="text-center">
                       ${getBadge(post.published)}
                     </td>
                     <td>
                       ${post.title}
                     </td>
-                  <td>
+                  <td class="text-right">
                     <a class="btn btn-link" href=${getEditorLink(post.id)}>Edit</a>
-                  </td>
-                  <td>
-                  <button data-toggle="modal" data-target="#confirmModal" class="btn btn-link text-danger" onclick=~{setDeleteId(${post.id})}>Delete</button>
+                    <button data-toggle="modal" 
+                            data-target="#confirmModal" 
+                            class="btn btn-link text-danger"
+                            onclick=~{setDeleteId(${post.id})}>
+                              Delete
+                    </button>
                   </td>
                   </tr>)
         })}
