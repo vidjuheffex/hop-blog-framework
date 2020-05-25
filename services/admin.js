@@ -70,7 +70,7 @@ service admin() {
       </div>    
       
       <table class="table">
-        ${getPostList().map((post)=>{
+        ${getPostList(false).map((post)=>{
           function getBadge(published){
             if (published) {
               return <span class="badge badge-primary">Published</span>
