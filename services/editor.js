@@ -25,6 +25,8 @@ service editor ( o ) {
     <sitewrap>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css" />
     <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/themes/prism.css" />
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.20.0/prism.min.js" />
     <script src='../helpers/normalize.js' lang="hopscript" />
     <script defer>
     const normalize = require('../helpers/normalize.js');
