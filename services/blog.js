@@ -1,6 +1,5 @@
 const SITEWRAP = require('../elements/SITEWRAP.js');
 
-const dbInit = require('../scheme/db-init.hop');
 const getPostList = require('../scheme/get-post-list.hop');
 
 service blog () {

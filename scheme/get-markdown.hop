@@ -1,5 +1,4 @@
 (module get-markdown
-        (library sqlite)
         (export (hopscript %this _ scope mod)))
 
 (define (hopscript %this _ scope mod)
