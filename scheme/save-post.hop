@@ -25,8 +25,8 @@
                              'NULL
                              (js-jsstring->string content))
                          0
-                         (date->utc-string (current-date))
-                         (date->utc-string (current-date)))
+                         (date->iso8601-date (current-date))
+                         (date->iso8601-date (current-date)))
             (sqlite-exec db
                          "UPDATE post SET (title, url, content, lastUpdated) = ('~A', '~A', ~q, '~A') WHERE id='~A'"
                          title
@@ -34,7 +34,7 @@
                          (if (unspecified? content)
                              'NULL
                              (js-jsstring->string content))
-                         (date->utc-string (current-date))
+                         (date->iso8601-date (current-date))
                          current-id))
         (js-string->jsstring current-id)))
     #f %this)))
