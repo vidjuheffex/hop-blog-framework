@@ -12,7 +12,7 @@
      (let ((list-of-posts (sqlite-map db
                                       (lambda (id title  date updated content published url)
                                         (make-post id title date updated content (positive? (string->number published )) url))
-                                      (string-append "SELECT Post.id, Post.title, Post.dateCreated, Post.lastUpdated, Post.content, Post.published, Post.url FROM Post" (if filtered? " WHERE published=1" "") " ORDER BY lastUpdated DESC"))))
+                                      (string-append "SELECT Post.id, Post.title, Post.dateCreated, Post.lastUpdated, Post.content, Post.published, Post.url FROM Post" (if filtered? " WHERE published=1" "") " ORDER BY dateCreated DESC"))))
        (js-vector->jsarray
         (apply vector
                (map (lambda (post)
