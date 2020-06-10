@@ -21,6 +21,8 @@ service editor ( o ) {
     initialDateUpdated = post.dateUpdated;
   }
 
+  let initialEncodedValue = encodeURIComponent(initialValue);
+
   return (
     <sitewrap>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css" />
@@ -111,7 +113,6 @@ service editor ( o ) {
       )
     }
     </react>
-    
 
 
     <!--  Publish Button Reactive -->
@@ -167,6 +168,7 @@ service editor ( o ) {
     <textarea id="editor" />
     ~{editor = new SimpleMDE({
         element: document.getElementById('editor'),
-        initialValue: ${initialValue}});}
+      initialValue: decodeURIComponent(${initialEncodedValue})});
+     }
     </sitewrap>)
 }
