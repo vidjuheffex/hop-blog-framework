@@ -18,7 +18,7 @@ const PAGEHEAD = () =>
         <link rel="manifest" href="/home/jules/Code/website/public/site.webmanifest" />
         <link rel="mask-icon" href="/home/jules/Code/website/public/safari-pinned-tab.svg" color="#5bbad5" />
         <link rel="shortcut icon" href="/home/jules/Code/website/public/favicon.ico" />
-        <link rel="stylesheet" href="/home/jules/Code/website/site.css" />
+        <link rel="stylesheet" href="/home/jules/Code/website/public/site.css" />
         <meta name="msapplication-TileColor" content="#2b5797" />
         <meta name="msapplication-config" content="/home/jules/Code/website/public/browserconfig.xml" />
         <meta name="theme-color" content="#ffffff" />
